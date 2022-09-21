@@ -453,7 +453,7 @@ public final class FileUtils {
     public static void recursiveDelete(File file, File base) throws IOException {
         LOG.debug("Deleting: {}", file);
 
-        if (!(file.getCanonicalPath().startsWith(base.getCanonicalPath()))) {
+        if (!(file.getCanonicalFile().toPath().startsWith(base.getCanonicalFile().toPath()))) {
             throw new IOException("Trying to delete a file outside Netx's basedir: "
                     + file.getCanonicalPath());
         }
