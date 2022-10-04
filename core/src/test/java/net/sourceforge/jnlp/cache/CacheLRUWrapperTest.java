@@ -47,6 +47,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.file.Files;
 import java.util.concurrent.CountDownLatch;
 
 import static net.adoptopenjdk.icedteaweb.JvmPropertyConstants.JAVA_IO_TMPDIR;
@@ -64,9 +65,7 @@ public class CacheLRUWrapperTest {
 
     static {
         try {
-            tmpCache = File.createTempFile("itw", "CacheLRUWrapperTest", javaTmp);
-            tmpCache.delete();
-            tmpCache.mkdir();
+            tmpCache = Files.createTempDirectory(javaTmp.toPath(), "itw" + "CacheLRUWrapperTest").toFile();
             tmpCache.deleteOnExit();
             if (!tmpCache.isDirectory()) {
                 throw new IOException("Unsuccessful to create tmpfile, remove it and create same directory");

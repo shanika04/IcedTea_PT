@@ -47,6 +47,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertTrue;
@@ -239,10 +240,8 @@ public class DirectoryValidatorTest extends NoStdOutErrTest{
         assertTrue(s4.isEmpty());
 
         File f3 = File.createTempFile("test", "testMainDirs", f2);
-        File f4 = File.createTempFile("test", "testMainDirs", f2);
-        assertTrue(f4.delete());
-        assertTrue(f3.delete()); 
-        assertTrue(f4.mkdir());
+        File f4 = Files.createTempDirectory(f2.toPath(), "test" + "testMainDirs").toFile();
+        assertTrue(f3.delete());
         assertTrue(f2.setWritable(false)); //now f2 will not be recreated
         
         dv= new DirectoryValidator(Arrays.asList(f3, f4));
@@ -260,9 +259,7 @@ public class DirectoryValidatorTest extends NoStdOutErrTest{
     }
 
     private File createTempDir() throws IOException {
-        File f1 = File.createTempFile("test", "testMainDirs");
-        assertTrue(f1.delete());
-        assertTrue(f1.mkdir());
+        File f1 = Files.createTempDirectory("test" + "testMainDirs").toFile();
         f1.deleteOnExit();
         return f1;
     }

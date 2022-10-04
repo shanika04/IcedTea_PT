@@ -52,6 +52,7 @@ import javax.naming.ConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.Date;
 import java.util.Map;
 import java.util.Properties;
@@ -235,9 +236,7 @@ public class DeploymentConfigurationTest extends NoStdOutErrTest {
     @Test
     public void testCheckUrlRemoteNotOk404_1() throws ConfigurationException, IOException {
         ServerLauncher server = ServerAccess.getIndependentInstance(System.getProperty(JAVA_IO_TMPDIR), ServerAccess.findFreePort());
-        File f = File.createTempFile("itw", "checkUrlTest_404");
-        f.delete();
-        f.mkdir();
+        File f = Files.createTempDirectory("itw" + "checkUrlTest_404").toFile();
         f.deleteOnExit();
         try {
             URL u = new URL("http://localhost:" + server.getPort() + "/" + f.getName() + "/notexisting.file");
