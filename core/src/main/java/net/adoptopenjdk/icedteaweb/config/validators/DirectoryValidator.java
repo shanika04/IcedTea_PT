@@ -12,6 +12,7 @@ import net.sourceforge.jnlp.runtime.JNLPRuntime;
 import net.sourceforge.jnlp.util.FileUtils;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,7 +98,7 @@ public class DirectoryValidator {
         File testFile = null;
         boolean correctPermissions = true;
         try {
-            testFile = File.createTempFile("maindir", "check", f);
+            testFile = Files.createTempDirectory(f.toPath(), "maindir" + "check").toFile();
             if (!testFile.exists()) {
                 correctPermissions = false;
             }
@@ -117,11 +118,10 @@ public class DirectoryValidator {
             if (canList == null || canList.length == 0) {
                 correctPermissions = false;
             }
-            testFile.delete();
             if (testFile.exists()) {
                 correctPermissions = false;
             } else {
-                final boolean created = testFile.mkdir();
+                final boolean created = true;
                 if (!created) {
                     correctPermissions = false;
                 }

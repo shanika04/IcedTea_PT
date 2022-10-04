@@ -58,6 +58,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.Locale;
 
 import static net.adoptopenjdk.icedteaweb.i18n.Translator.R;
@@ -190,9 +191,7 @@ public final class AboutDialog extends JPanel implements Runnable, ActionListene
             if (helpPanel == null) {
                 //copy logo and generate resources to tmp dir
                 try {
-                    File f = File.createTempFile("icedtea-web", "help");
-                    f.delete();
-                    f.mkdir();
+                    File f = Files.createTempDirectory("icedtea-web" + "help").toFile();
                     f.deleteOnExit();
                     TextsProvider.generateRuntimeHtmlTexts(f);
                     //detect running application

@@ -45,6 +45,7 @@ import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
+import java.nio.file.Files;
 
 import static net.adoptopenjdk.icedteaweb.JvmPropertyConstants.USER_HOME;
 
@@ -65,9 +66,7 @@ public class FirefoxProfilesOperator {
             return;
         }
         sourceDir = new File(System.getProperty(USER_HOME) + "/.mozilla/firefox/");
-        final File f = File.createTempFile("backupedFirefox_", "_profiles.default");
-        f.delete();
-        f.mkdir();
+        final File f = Files.createTempDirectory("backupedFirefox_" + "_profiles.default").toFile();
         backupDir = f;
         final String message = "Backuping firefox profiles from " + sourceDir.getAbsolutePath() + " to " + backupDir.getAbsolutePath();
         ServerAccess.logOutputReprint(message);

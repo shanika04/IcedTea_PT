@@ -48,6 +48,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.management.ManagementFactory;
+import java.nio.file.Files;
 import java.util.jar.Attributes;
 import java.util.jar.JarEntry;
 import java.util.jar.JarOutputStream;
@@ -134,13 +135,7 @@ public class FileTestUtils {
     /* Creates a temporary directory. Note that Java 7 has a method for this,
      * but we want to remain 6-compatible. */
     static public File createTempDirectory() throws IOException {
-        final File file = File.createTempFile("temp",
-                Long.toString(System.nanoTime()));
-        file.delete();
-        if (!file.mkdir()) {
-            throw new IOException("Failed to create temporary directory '"
-                    + file + "' for test.");
-        }
+        final File file = Files.createTempDirectory("temp" + Long.toString(System.nanoTime())).toFile();
         return file;
     }
 
