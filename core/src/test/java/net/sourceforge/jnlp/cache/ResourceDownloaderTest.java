@@ -131,7 +131,7 @@ public class ResourceDownloaderTest extends NoStdOutErrTest {
     public void getUrlResponseCodeTestWorkingHeadRequest() throws Exception {
         redirectErr();
         try {
-            File f = File.createTempFile(nameStub1, nameStub2);
+            File f = Files.createTempFile(nameStub1, nameStub2).toFile();
             int i = ResourceDownloader.getUrlResponseCodeWithRedirectionResult(testServer.getUrl(f.getName()), new HashMap<>(), HttpMethod.HEAD).getResponseCode();
             Assert.assertEquals(HttpURLConnection.HTTP_OK, i);
             f.delete();
@@ -146,7 +146,7 @@ public class ResourceDownloaderTest extends NoStdOutErrTest {
     public void getUrlResponseCodeTestNotWorkingHeadRequest() throws Exception {
         redirectErr();
         try {
-            File f = File.createTempFile(nameStub1, nameStub2);
+            File f = Files.createTempFile(nameStub1, nameStub2).toFile();
             int i = ResourceDownloader.getUrlResponseCodeWithRedirectionResult(testServerWithBrokenHead.getUrl(f.getName()), new HashMap<>(), HttpMethod.HEAD).getResponseCode();
             Assert.assertEquals(HttpURLConnection.HTTP_NOT_IMPLEMENTED, i);
             f.delete();
@@ -161,7 +161,7 @@ public class ResourceDownloaderTest extends NoStdOutErrTest {
     public void getUrlResponseCodeTestGetRequestOnNotWorkingHeadRequest() throws Exception {
         redirectErr();
         try {
-            File f = File.createTempFile(nameStub1, nameStub2);
+            File f = Files.createTempFile(nameStub1, nameStub2).toFile();
             int i = ResourceDownloader.getUrlResponseCodeWithRedirectionResult(testServerWithBrokenHead.getUrl(f.getName()), new HashMap<>(), HttpMethod.GET).getResponseCode();
             Assert.assertEquals(HttpURLConnection.HTTP_OK, i);
             f.delete();
@@ -176,7 +176,7 @@ public class ResourceDownloaderTest extends NoStdOutErrTest {
     public void getUrlResponseCodeTestGetRequest() throws Exception {
         redirectErr();
         try {
-            File f = File.createTempFile(nameStub1, nameStub2);
+            File f = Files.createTempFile(nameStub1, nameStub2).toFile();
             int i = ResourceDownloader.getUrlResponseCodeWithRedirectionResult(testServer.getUrl(f.getName()), new HashMap<>(), HttpMethod.GET).getResponseCode();
             Assert.assertEquals(HttpURLConnection.HTTP_OK, i);
             f.delete();
@@ -191,11 +191,11 @@ public class ResourceDownloaderTest extends NoStdOutErrTest {
     public void findBestUrltest() throws Exception {
         redirectErr();
         try {
-            File fileForServerWithHeader = File.createTempFile(nameStub1, nameStub2);
+            File fileForServerWithHeader = Files.createTempFile(nameStub1, nameStub2).toFile();
             File versionedFileForServerWithHeader = new File(fileForServerWithHeader.getParentFile(), fileForServerWithHeader.getName() + "-2.0");
             versionedFileForServerWithHeader.createNewFile();
 
-            File fileForServerWithoutHeader = File.createTempFile(nameStub1, nameStub2);
+            File fileForServerWithoutHeader = Files.createTempFile(nameStub1, nameStub2).toFile();
             File versionedFileForServerWithoutHeader = new File(fileForServerWithoutHeader.getParentFile(), fileForServerWithoutHeader.getName() + "-2.0");
             versionedFileForServerWithoutHeader.createNewFile();
 

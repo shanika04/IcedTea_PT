@@ -38,6 +38,7 @@ package net.adoptopenjdk.icedteaweb.client.parts.dialogs.security.appletextended
 import net.adoptopenjdk.icedteaweb.testing.ServerAccess;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Arrays;
 import net.adoptopenjdk.icedteaweb.client.parts.dialogs.security.appletextendedsecurity.UnsignedAppletActionEntry;
 import net.adoptopenjdk.icedteaweb.client.parts.dialogs.security.remember.ExecuteAppletAction;
@@ -82,9 +83,9 @@ public class UnsignedAppletActionStorageImplTest {
 
     @BeforeClass
     public static void prepareTestFiles() throws IOException {
-        f1 = File.createTempFile("itwMatching", "testFile1");
-        f2 = File.createTempFile("itwMatching", "testFile2");
-        f3 = File.createTempFile("itwMatching", "testFile3");
+        f1 = Files.createTempFile("itwMatching", "testFile1").toFile();
+        f2 = Files.createTempFile("itwMatching", "testFile2").toFile();
+        f3 = Files.createTempFile("itwMatching", "testFile3").toFile();
         ServerAccess.saveFile(versionLine+"c1:A{YES}; 123456 .* .* jar1,jar2", f1);
         ServerAccess.saveFile(versionLine+"c1:N{NO}; 123456 .* \\Qbla\\E jar1,jar2", f2);
         ServerAccess.saveFile(versionLine
@@ -96,10 +97,10 @@ public class UnsignedAppletActionStorageImplTest {
                 + "c1:n{NO};c2:n{NO}; 1363281783104 \\Qhttp://www.walter-fendt.de/ph14e/inclplane.htm\\E \\Qhttp://www.walter-fendt.de/ph14_jar/\\E Ph14English.jar,SchiefeEbene.jar"
                 + "", f3);
 
-        ff1 = File.createTempFile("itwMatching", "testFile1");
-        ff2 = File.createTempFile("itwMatching", "testFile2");
-        ff3 = File.createTempFile("itwMatching", "testFile3");
-        ff4 = File.createTempFile("itwMatching", "testFile3");
+        ff1 = Files.createTempFile("itwMatching", "testFile1").toFile();
+        ff2 = Files.createTempFile("itwMatching", "testFile2").toFile();
+        ff3 = Files.createTempFile("itwMatching", "testFile3").toFile();
+        ff4 = Files.createTempFile("itwMatching", "testFile3").toFile();
         ServerAccess.saveFile(versionLine+"c1:A{YES};c3:n{NO}; 123456 .* .* jar1,jar2", ff1);
         ServerAccess.saveFile(versionLine+"c6:y{YES}; 123456 .* \\Qbla\\E jar1,jar2", ff2);
         ServerAccess.saveFile(versionLine+"c6:A{YES}; 123456 .* \\Qbla\\E jar1,jar2", ff4);

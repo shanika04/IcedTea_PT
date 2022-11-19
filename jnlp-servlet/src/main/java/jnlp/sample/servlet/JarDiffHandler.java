@@ -47,6 +47,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 
@@ -389,7 +390,7 @@ public class JarDiffHandler
         // download file into temp dir
         if ( fileURL != null )
         {
-            File newFile = File.createTempFile( "temp", ".jar", tempDir );
+            File newFile = Files.createTempFile(tempDir.toPath(), "temp", ".jar").toFile();
             if ( download( fileURL, newFile ) )
             {
                 String filePath = newFile.getPath();
@@ -444,7 +445,7 @@ public class JarDiffHandler
             File tempDir = (File) _servletContext.getAttribute( "javax.servlet.context.tempdir" );
 
             // fix for 4653036: JarDiffHandler() should use javax.servlet.context.tempdir to store the jardiff
-            File outputFile = File.createTempFile( "jnlp", ".jardiff", tempDir );
+            File outputFile = Files.createTempFile(tempDir.toPath(), "jnlp", ".jardiff").toFile();
 
             _log.addDebug(
                     "Generating Jardiff between " + oldFilePath + " and " + newFilePath + " Store in " + outputFile );

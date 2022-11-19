@@ -42,6 +42,7 @@ import org.junit.Test;
 import sun.security.provider.PolicyParser;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
@@ -115,7 +116,7 @@ public class PolicyEditorParsingTest {
 
     @Before
     public void createTempFile() throws Exception {
-        file = File.createTempFile("PolicyEditor", ".policy");
+        file = Files.createTempFile("PolicyEditor", ".policy").toFile();
         file.deleteOnExit();
     }
 
