@@ -300,7 +300,7 @@ public class JNLPClassLoaderTest extends NoStdOutErrTest {
     public void tryNullManifest() throws Exception {
         File tempDirectory = FileTestUtils.createTempDirectory();
         File jarLocation = new File(tempDirectory, "test-npe.jar");
-        File dummyContent = File.createTempFile("dummy", "context", tempDirectory);
+        File dummyContent = Files.createTempFile(tempDirectory.toPath(), "dummy", "context").toFile();
         jarLocation.deleteOnExit();
 
         /* Test with-out any attribute specified specified */
@@ -341,7 +341,7 @@ public class JNLPClassLoaderTest extends NoStdOutErrTest {
     public void testNameClashInNestedJars() throws Exception {
         //for this test is enough to not crash jvm
         boolean verifyBackup = JNLPRuntime.isVerifying();
-        File dirHolder = File.createTempFile("pf-", ".jar");
+        File dirHolder = Files.createTempFile("pf-", ".jar").toFile();
         dirHolder.deleteOnExit();
         File jarLocation = new File(dirHolder.getParentFile(), "pf.jar");
         jarLocation.deleteOnExit();

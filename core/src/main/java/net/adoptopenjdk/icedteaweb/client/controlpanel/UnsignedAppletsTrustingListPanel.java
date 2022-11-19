@@ -96,6 +96,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
+import java.nio.file.Files;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -597,7 +598,7 @@ public class UnsignedAppletsTrustingListPanel extends JPanel {
 
         File f = null;
         try {
-            f = File.createTempFile("appletTable", "validation");
+            f = Files.createTempFile("appletTable", "validation").toFile();
         } catch (Exception ex) {
             LOG.error(IcedTeaWebConstants.DEFAULT_ERROR_MESSAGE, ex);
             JOptionPane.showMessageDialog(this, Translator.R("APPEXTSECguiPanelCanNOtValidate", ex.toString()));

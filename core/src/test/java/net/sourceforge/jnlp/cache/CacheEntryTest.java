@@ -179,7 +179,7 @@ public class CacheEntryTest {
     }
 
     private static File createFile(String contents) throws IOException {
-        File cachedFile = File.createTempFile("CacheEntryTest", null);
+        File cachedFile = Files.createTempFile("CacheEntryTest", null).toFile();
         Files.write(cachedFile.toPath(), contents.getBytes());
         cachedFile.deleteOnExit();
         return cachedFile;
